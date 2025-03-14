@@ -168,13 +168,16 @@
             <% bookings.forEach(booking => { %>
                 <div class="booking-card">
                  
-                    <img src="<%= booking.listing.image.url %>" alt="Hotel Image">
-                    <div class="booking-card-content">
-                        <h3><%= booking.listing.title %></h3>
-                        <p><span>Location:</span> <%= booking.listing.location %></p>
-                        <p><span>Check-in:</span> <%= booking.checkin.toLocaleDateString() %> | <span>Check-out:</span> <%= booking.checkout.toLocaleDateString() %></p>
-                        
-                    </div>
+                    <% if (booking.listing) { %>
+                        <img src="<%= booking.listing.image ? booking.listing.image.url : '/default-image.jpg' %>" alt="Hotel Image">
+                        <div class="booking-card-content">
+                            <h3><%= booking.listing.title %></h3>
+                            <p><span>Location:</span> <%= booking.listing.location %></p>
+                            <p><span>Check-in:</span> <%= booking.checkin.toLocaleDateString() %> | <span>Check-out:</span> <%= booking.checkout.toLocaleDateString() %></p>
+                        </div>
+                    <% } else { %>
+                        <p class="error-message">Listing details not available.</p>
+                    <% } %>
                 </div>
             <% }) %>
         <% } %>
