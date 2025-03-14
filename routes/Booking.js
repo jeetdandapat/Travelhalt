@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const Booking = require("../models/Booking");
-const Listing = require("../models/Listing");
+const Listing = require("../models/listing");
 const { isLoggedIn } = require("../middleware");
 
 
