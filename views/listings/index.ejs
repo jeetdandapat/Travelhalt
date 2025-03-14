@@ -1,0 +1,460 @@
+<% layout("/layouts/boilerplate") %> 
+
+
+<style>
+
+
+
+   #filters {
+       display: flex;
+       flex-wrap: wrap;
+       align-items: center;
+       max-width: 1200px;  
+       margin: 0 auto;  
+       padding: 0 20px;  
+   }
+
+   .filter {
+       text-align: center;
+       margin-right: 2rem;
+       margin-top: 2rem;
+       opacity: 0.7;
+   }
+
+   .filter:hover {
+       opacity: 1;
+       cursor: pointer;
+   }
+
+   .filter p {
+       font-size: 0.8rem;
+   }
+
+   /* Tax Toggle */
+   .tax-info {
+       display: none;
+   }
+
+
+</style>
+
+
+<style>
+
+    /* Reset default margins and padding */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+    
+    .hero-section {
+    width: 100vw; 
+    height: 91vh; 
+    background: url('https://cdn.pixabay.com/photo/2024/01/02/14/58/leaf-8483401_1280.jpg') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    image-rendering: crisp-edges; 
+    image-rendering: -webkit-optimize-contrast; 
+    
+  
+    filter: contrast(120%) brightness(108%) saturate(120%) sharpness(5px);
+}
+
+
+.hero-content h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+
+    
+    /* Hero Content */
+    .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+    
+    
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+    .hero-content h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: hsla(266, 92%, 9%, 0.953); /* Maroon color */
+    
+  
+    text-shadow: 
+        -2px -2px 0 #e1d5d5,  
+         2px -2px 0 #26023bf6,  
+        -2px  2px 0 #171716f9,  
+         2px  2px 0 #1e1b1b,  
+         4px 4px 10px #310e0399; /* Soft glow effect */
+}
+
+
+@keyframes glow {
+    0% { text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8); }
+    50% { text-shadow: 6px 6px 15px rgba(0, 0, 0, 1); }
+    100% { text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8); }
+}
+   
+    .search-box {
+        display: flex;
+        align-items: center;
+        background: rgb(241, 238, 227);
+        border-radius: 25px;
+        padding: 10px;
+        box-shadow:0px 5px 10px #30034c;
+    }
+    
+    .search-box input {
+        border: none;
+        outline: none;
+        padding: 10px;
+        width: 500px;
+        font-size: 16px;
+        border-radius: 20px;
+    }
+@media (max-width: 768px) {
+    .search-box input {
+        width: 300px; 
+    }
+}
+    .search-box button {
+        background: #ff5722;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    
+    .search-box button:hover {
+        background: #e64a19;
+    }
+    
+  
+    .container {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+
+    
+    
+    
+    .booking-section {
+        position: relative;
+        width: 100%;
+        height: 200px; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; 
+        text-align: center;
+        z-index: 2;
+        padding-bottom: 20px; 
+    }
+    
+    
+    .booking-section h2,
+    .booking-section p {
+        position: relative; 
+        z-index: 2;
+        color: rgb(15, 232, 247);
+        margin: 0; 
+    }
+    
+   
+    .booking-section p {
+        margin-bottom: 20px;
+    }
+    
+    
+    .booking-section::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px; 
+
+    background: linear-gradient(to right, #23282889, #333c46 40%, #2e3843 60%, #262b2bd2),
+                linear-gradient(to top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+
+    background-blend-mode: overlay; 
+    
+    filter: blur(10px); 
+    
+    z-index: 1;
+   
+}
+
+    
+    
+    
+    </style>
+    </head>
+    <body>
+    
+  <!-- Hero Section -->
+<section class="hero-section">
+    <br><br><br><br><br><br><br>
+   <div class="hero-content">
+   
+       <h1>Travelhalt</h1>
+
+<div class="search-box">
+    <input type="text" id="search-query" placeholder="Enter location or price (e.g., Delhi 5000)">
+    <button id="searchButton">Search</button>
+</div>
+
+
+
+
+   </div>
+   <br><br><br><br><br><br><br><br><br><br><br><br><br>
+   <br>
+   <div class="booking-section">
+    <h2>Book Your Stay</h2>
+ 
+   <p>Find the best deals for hotels and resorts.</p>
+   </div>
+</section>
+
+
+  
+     <div id ="filters">
+        <div class="filter">
+          <div> <i class="fa-solid fa-fire"></i>
+           </div> <p>Trending</p> 
+       </div>
+       <div class="filter">
+        <div> <i class="fa-solid fa-bed"></i>
+         </div> <p>Rooms</p> 
+     </div>
+     
+     <div class="filter">
+        <div> <i class="fa-brands fa-fort-awesome"></i>
+         </div> <p>Castles</p> 
+     </div>
+    
+   
+     <div class="filter">
+        <div> <i class="fa-solid fa-campground"></i>
+          </div> <p>Camping</p>
+     </div>
+     <div class="filter">
+        <div> <i class="fa-solid fa-igloo"></i>
+          </div> <p>Domes</p>
+     </div>
+    
+     <div class="filter">
+        <div> <i class="fa-solid fa-ship"></i>
+          </div> <p>Boats</p>
+     </div>
+     <div class="filter">
+        <div><i class="fa-solid fa-cow"></i>
+        </div>  <p>Farms</p> 
+     </div>
+     <div class="filter">
+        <div><i class="fa-solid fa-cow"></i>
+        </div>  <p>Farms</p> 
+     </div>
+     <div class="filter">
+        <div> <i class="fa-solid fa-igloo"></i>
+          </div> <p>Domes</p>
+     </div>
+     <div class="filter">
+        <div> <i class="fa-solid fa-ship"></i>
+          </div> <p>Boats</p>
+     </div>
+     <div class="filter">
+        <div> <i class="fa-solid fa-snowflake"></i>
+        </div>  <p>Arctic</p> 
+        
+     </div>
+     
+     
+    
+
+<style>
+       .tax-tooggle {
+       border: 1px solid black;
+       border-radius: 1rem;
+       height: 3.25rem;
+       padding: 1rem;
+       display: flex;
+       align-items: center;
+       max-width: 1200px;  
+       margin: 20px auto; 
+   }
+
+
+   .row {
+       max-width: 1200px;
+       margin: 0 auto;
+       padding: 0 20px;
+   }
+
+#filters {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important; 
+    white-space: nowrap !important;
+    
+    background: linear-gradient(to right, rgba(2, 69, 79, 0.1), #8549041a);
+    padding: 10px 0 !important;
+    
+    width: 100vw !important; 
+    max-width: 100% !important; 
+    
+    margin: 0 !important;
+    gap: 10px !important;
+    
+    
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+   
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+}
+  
+#filters::-webkit-scrollbar {
+    display: none; 
+}
+
+
+
+#filters .filter {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow-x: auto !important; 
+    
+    background: linear-gradient(to right,#c0d9dc,#b6dafe 40%  ) !important;
+    padding: 15px !important;
+    width: 120px !important; 
+    height: 120px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease-in-out !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    flex-shrink: 0 !important; 
+}
+
+
+#filters .filter:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2) !important;
+    background: #f8f9fa !important;
+}
+
+
+#filters .filter i {
+    font-size: 28px !important;
+    color: #ff5733 !important;
+    margin-bottom: 8px !important;
+}
+
+
+#filters .filter p {
+    font-weight: bold !important;
+    margin: 0 !important;
+    color: #280c0c !important;
+    font-size: 14px !important;
+}
+
+
+@media (max-width: 768px) {
+    #filters {
+        overflow-x: auto !important;
+        justify-content: flex-start !important;
+    }
+    #filters .filter {
+        width: 90px !important;
+        height: 90px !important;
+    }
+}
+
+
+
+
+    </style>
+
+     
+     <div class="tax-tooggle">
+        <div class="form-check-reverse form-switch">
+        <input 
+        class="form-check-input" 
+        type="checkbox"
+         role="switch" 
+         id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Display total after texes</label>
+      </div>
+     </div>
+     
+     </div>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+        <% for (let listing of allListings) { %>
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+                <div class="card col listing-card">
+                    <img src="<%= listing.image.url %>" 
+                         class="card-img-top"
+                         alt="listing_image"
+                         style="height: 20rem;">
+                    <div class="card-img-overlay"></div>
+
+                    <div class="card-body">
+                        <p class="card-text">
+                            <%= listing.title %> <br>
+                            &#8377; <%= listing.price.toLocaleString("en-IN")  %>/night
+                            <i class="tax-info"> &nbsp; &nbsp;+18% GST</i>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        <% } %>
+    </div>
+
+
+
+
+<script>
+   let textSwitch= document.getElementById("flexSwitchCheckDefault");
+   textSwitch.addEventListener("click",()=>{
+    let taxinfo = document.getElementsByClassName("tax-info");
+    for(info of taxinfo){
+       if(info.style.display !="inline"){
+        info.style.display="inline";  
+       } else{
+        info.style.display="none";
+       }
+    
+    }
+   });
+</script>

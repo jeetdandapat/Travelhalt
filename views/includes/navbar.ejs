@@ -1,0 +1,165 @@
+<style>
+  .navbar-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .navbar-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  .navbar-nav .nav-link {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin: 0 10px;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .navbar-nav .nav-link:hover,
+  .navbar-nav .nav-link:focus {
+    color: #fe424d;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100%;
+    background: #fff;
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .sidebar.open {
+    right: 0;
+  }
+  
+  .sidebar-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar a {
+    padding: 12px 20px;
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .sidebar a:hover {
+    background: #fe424d;
+    color: white;
+  }
+  
+  #close-btn {
+    font-size: 22px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-bottom: 10px;
+  }
+  
+  .navbar-toggler {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  
+  .navbar-toggler span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: #333;
+    transition: transform 0.3s ease-in-out;
+  }
+  </style>
+  
+  <nav class="navbar sticky-top navbar-expand-md">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img src="/path-to-your-icon.png" alt="Hotel Icon" class="navbar-icon">
+      </a>
+  
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="navbar-nav ms-3">
+          <a class="nav-link" href="/listings">Explore</a>
+          <a class="nav-link" href="/dashboard"><b>View Details</b></a>
+        </div>
+      </div>
+  
+      <div class="navbar-nav ms-auto d-none d-md-flex">
+        <a class="nav-link" href="/listings/new">Add New</a>
+        <% if (!currUser) { %>
+          <a class="nav-link" href="/signup"><b>Sign Up</b></a>
+          <a class="nav-link" href="/login"><b>Log In</b></a>
+        <% } else { %>
+          <a class="nav-link" href="/logout"><b>Log Out</b></a>
+        <% } %>
+      </div>
+  
+      <button class="navbar-toggler d-md-none" id="menu-toggle" data-bs-toggle="collapse" data-bs-target="#sidebar">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+  
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-content">
+      <button id="close-btn">✖</button>
+      <a class="nav-link" href="/listings">Explore</a>
+      <a class="nav-link" href="/dashboard">View Details</a>
+      <a class="nav-link" href="/listings/new">Add New</a>
+      <% if (!currUser) { %>
+        <a class="nav-link" href="/signup"><b>Sign Up</b></a>
+        <a class="nav-link" href="/login"><b>Log In</b></a>
+      <% } else { %>
+        <a class="nav-link" href="/logout"><b>Log Out</b></a>
+      <% } %>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const menuToggle = document.getElementById("menu-toggle");
+      const sidebar = document.getElementById("sidebar");
+      const closeBtn = document.getElementById("close-btn");
+  
+      function closeSidebar() {
+        sidebar.classList.remove("open");
+      }
+  
+      menuToggle.addEventListener("click", function (event) {
+        event.stopPropagation();
+        sidebar.classList.add("open");
+      });
+  
+      closeBtn.addEventListener("click", function () {
+        closeSidebar();
+      });
+  
+      document.addEventListener("click", function (event) {
+        if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+          closeSidebar();
+        }
+      });
+    });
+  </script>
+  

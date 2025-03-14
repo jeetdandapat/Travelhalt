@@ -1,0 +1,138 @@
+<% layout("/layouts/boilerplate")%>
+
+<style>
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: rgba(6, 34, 71, 0.63); 
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
+.form-label {
+    font-weight: bold;
+    color: #ddd;  
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+
+.form-control {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    transition: 0.3s;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+
+.form-control:focus {
+    box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.7);
+    transform: scale(1.02);
+    background: rgba(238, 235, 235, 0.835);
+}
+
+
+.listing-image {
+    width: 100%;
+    max-height: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+
+.edit-btn {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    border: none;
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+
+.edit-btn:hover {
+    background: linear-gradient(135deg, #ff4b2b, #ff416c);
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(255, 75, 43, 0.7);
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.container {
+    animation: fadeIn 1s ease-in-out;
+}
+</style>
+
+<div class="container">
+    <h3 class="text-center text-light">✨ Edit Your Listing ✨</h3>
+    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+        
+      
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input name="listing[title]" value="<%= listing.title %>" type="text" class="form-control" required>
+            <div class="valid-feedback">Title looks good!</div>
+        </div>
+
+    
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="listing[description]" class="form-control" required><%= listing.description %></textarea>
+            <div class="invalid-feedback">Please enter a short description</div>
+        </div>
+
+       
+        <div class="mb-3 text-center">
+            <p class="fw-bold text-light">Original Listing Image:</p>
+            <img src="<%= originalImageUrl %>" class="listing-image" alt="Listing Image">
+        </div>
+
+   
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload New Image</label>
+            <input name="listing[image]" type="file" class="form-control">
+        </div>
+
+        <div class="row">
+           
+            <div class="mb-3 col-md-4">
+                <label for="price" class="form-label">Price</label>
+                <input name="listing[price]" value="<%= listing.price %>" type="number" class="form-control" required>
+                <div class="invalid-feedback">Price should be valid</div>
+            </div>
+
+         
+            <div class="mb-3 col-md-8">
+                <label for="country" class="form-label">Country</label>
+                <input name="listing[country]" value="<%= listing.country %>" type="text" class="form-control" required>
+                <div class="invalid-feedback">Country name should be valid</div>
+            </div>
+        </div>
+
+     
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input name="listing[location]" value="<%= listing.location %>" type="text" class="form-control" required>
+            <div class="invalid-feedback">Location should be valid</div>
+        </div>
+
+    >
+        <button class="btn edit-btn mt-3">Edit</button>
+    </form>
+</div>

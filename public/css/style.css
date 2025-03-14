@@ -1,0 +1,277 @@
+body{
+   
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+ }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; 
+  overflow-x: hidden; 
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+  
+
+  body {
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    background: linear-gradient(to right, #687f968a, #8ae1eeb9); 
+    color: white; /* Default text color */
+    font-family: "Poppins", sans-serif;
+  }
+  
+ .container{
+     flex: 1;
+ }
+   
+  /* Navbar */
+  .navbar{
+     height: 5rem;
+     background-color: white;
+ 
+  }
+  .fa-compass{
+     color:#fe424d;
+     font-size: 2rem;
+  }
+  .nav-link{
+    color: #222222 !important;
+  }
+ 
+  /* Footer Container */
+ .f-info {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: space-evenly; /* Evenly space elements */
+     align-items: center; /* Center items vertically */
+     text-align: center;
+     height: 8rem;
+     background-color: #ebebeb;
+     padding: 1rem; /* Add padding for better spacing */
+ }
+ 
+ /* Social Icons */
+ .f-info--socials {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     width: 100%;
+     margin-bottom: 1rem;
+ }
+ 
+ .f-info--socials i {
+     font-size: 1.5rem; /* Slightly larger icons */
+     margin-right: 1rem;
+     color: #333; /* Default icon color */
+     transition: color 0.3s ease; /* Smooth color transition */
+ }
+ 
+ .f-info--socials i:hover {
+     color: #007bff; /* Change color on hover */
+ }
+ 
+ /* Footer Links */
+ .f-info-links {
+     display: flex;
+     gap: 1rem; /* Spacing between links */
+ }
+ 
+ .f-info-links a {
+     text-decoration: none;
+     color: #222222;
+     font-weight: bold;
+ }
+ 
+ .f-info-links a:hover {
+     text-decoration: underline;
+     color: #007bff; /* Change color on hover */
+ }/* Footer Container */
+ .f-info {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: space-evenly; /* Evenly space elements */
+     align-items: center; /* Center items vertically */
+     text-align: center;
+     height: 8rem;
+     background-color: #ebebeb;
+     padding: 1rem; /* Add padding for better spacing */
+ }
+ 
+ /* Social Icons */
+ .f-info--socials {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     width: 100%;
+     margin-bottom: 1rem;
+ }
+ 
+ .f-info--socials i {
+     font-size: 1.5rem; /* Slightly larger icons */
+     margin-right: 1rem;
+     color: #333; /* Default icon color */
+     transition: color 0.3s ease; /* Smooth color transition */
+ }
+ 
+ .f-info--socials i:hover {
+     color: #007bff; /* Change color on hover */
+ }
+ 
+/* Footer Styling */
+.footer {
+    background: #050340;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 50px;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-branding h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.footer-branding p {
+    font-size: 14px;
+    color: #bbb;
+}
+
+.footer-links {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    color: #ffcc00;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-socials a {
+    color: white;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.footer-socials a:hover {
+    color: #ffcc00;
+    transform: scale(1.1);
+}
+
+.footer-copyright {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 10px;
+}
+
+ 
+ /* Cards */
+ /* Cards */
+.listing-card{
+    border: none !important;
+    margin-bottom: 2rem;
+   
+}
+.card-img-top{
+    border-radius: 1rem !important; 
+    width: 100% !important;
+    object-fit:cover !important ;
+    padding: 0.5rem !important;
+}
+
+.card-body{
+    padding: 0 !important;
+}
+.card-text p{
+    font-weight:400;
+}
+
+.listing-link{
+    text-decoration: none;
+}
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+ /* New page */
+ .add-btn{
+     background-color:#fe424d !important; 
+     border: none !important;
+ }
+ 
+ /* Edit page */
+ .edit-btn{
+     background-color:#fe424d !important; 
+     border: none !important;
+ }
+ 
+ /* Show page */
+ .show-img{
+     height: 30vh;
+ }
+ 
+ .btns{
+     display: flex;
+ }
+ .show-card{
+     padding-left: 0;
+     padding-right: 0;
+ }
+ 
+ #map {
+     height: 400px;
+     width: 100vh;
+   }

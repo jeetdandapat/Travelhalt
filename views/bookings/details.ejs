@@ -1,0 +1,118 @@
+<% layout("/layouts/boilerplate") %>
+<style>
+    
+    .main-content {
+        min-height: calc(100vh - 120px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    
+    .details-container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 35px;
+        border-radius: 15px;
+        box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        margin: 80px auto 20px auto;
+        animation: fadeInUp 1s ease-out;
+    }
+
+    /* Heading style */
+    h2 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    /* Amount text */
+    .amount {
+        font-size: 22px;
+        font-weight: 600;
+        color: #333;
+        margin-top: 10px;
+    }
+
+    /* Button Styling */
+    .btn {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 14px 28px;
+        background: linear-gradient(135deg, #007BFF, #0056b3); 
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 6px 18px rgba(0, 91, 179, 0.5);
+    }
+
+    /* Hover effect */
+    .btn:hover {
+        background: linear-gradient(135deg, #0056b3, #003d80);
+        box-shadow: 0px 8px 22px rgba(0, 91, 179, 0.7);
+        transform: translateY(-5px); 
+    }
+
+    /* Active (Click) effect */
+    .btn:active {
+        transform: translateY(2px); 
+        box-shadow: 0px 4px 12px rgba(0, 91, 179, 0.5);
+    }
+
+ 
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    
+    @media (max-width: 768px) {
+        .details-container {
+            padding: 20px;
+            max-width: 90%;
+        }
+
+        h2 {
+            font-size: 24px;
+        }
+
+        .amount {
+            font-size: 20px;
+        }
+
+        .btn {
+            font-size: 16px;
+        }
+    }
+
+</style>
+
+</head>
+<body>
+    <div class="main-content">
+        <div class="details-container">
+            <h2>Booking Details</h2>
+            <p><strong>Hotel/Resort:</strong> <%= booking.stay %></p>
+            <p><strong>Room Type:</strong> <%= booking.room %></p>
+            <p><strong>Check-in:</strong> <%= new Date(booking.checkin).toDateString() %></p>
+            <p><strong>Check-out:</strong> <%= new Date(booking.checkout).toDateString() %></p>
+            <p class="amount">Total Amount: &#8377; <%= booking.totalAmount.toLocaleString("en-IN") %></p>
+            <a href="/bookings/<%= booking._id %>/payment" class="btn">Proceed to Payment</a>
+        </div>
+    </div>
+</body>

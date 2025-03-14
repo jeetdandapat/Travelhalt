@@ -1,0 +1,252 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class=" col-md-8">
+            <h3 class="text-center"><%= listing.title %></h3>
+
+         
+            <div class="card  box   show-card">
+                <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
+                <div class="card-body">
+                    <p class="card-text" style="font-size: 1.1rem !important; color: #333 !important; line-height: 1.6 !important; margin-bottom: 10px !important; padding-left: 15px !important;">
+                        <strong>Owned by:</strong> 
+                        <i><u><%= listing.owner.username %></u></i>
+                    </p>
+                
+                    <p class="card-text" style="font-size: 1.1rem !important; color: #444 !important; line-height: 1.6 !important; margin-bottom: 10px !important; padding-left: 15px !important;">
+                        <%= listing.description %>
+                    </p>
+                
+                    <p class="card-text" style="font-size: 1.3rem !important; font-weight: bold !important; color: #E74C3C !important; margin-bottom: 10px !important; padding-left: 15px !important;">
+                        &#8377; <%= listing.price.toLocaleString("en-IN") %>
+                    </p>
+                
+                    <p class="card-text" style="font-size: 1rem !important; font-style: italic !important; color: #7F8C8D !important; margin-bottom: 10px !important; padding-left: 15px !important;">
+                        <%= listing.location %>, <%= listing.country %>
+                    </p>
+                </div>
+                
+                
+                
+               
+<% if (currUser && listing.owner._id.equals(currUser._id)) { %>    
+    <div class="d-flex justify-content-between px-3 pb-3">
+        <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary edit-btn">Edit</a>
+        <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+            <button class="btn btn-danger delete-btn">Delete</button>
+        </form>
+    </div>
+<% } else { %>
+    <!-- Book Now button (only visible to non-owners) -->
+    <div class="text-center pb-3">
+        <% if (!currUser) { %>
+            <a href="/login" class="btn btn-warning">Login to Book</a>
+        <% } else { %>
+            <a href="/listings/<%= listing._id %>/book" class="btn btn-success book-btn">Book Now</a>
+        <% } %>
+    </div>
+<% } %>
+
+            </div>
+
+            <!-- Review Form (only visible if user is logged in) -->
+            <!-- <% if(currUser) { %> -->
+            <hr>
+            <h4 class="text-center">Leave a Review</h4>
+            <div class="card review-card">
+                <div class="card-body">
+                    <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rating</label>
+                            <fieldset class="starability-slot">
+                                <% for(let i = 1; i <= 5; i++) { %>
+                                    <input type="radio" id="rate<%= i %>" name="review[rating]" value="<%= i %>" />
+                                    <label for="rate<%= i %>"><%= i %> star</label>
+                                <% } %>
+                            </fieldset>
+                        </div>
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">Comments</label>
+                            <textarea name="review[comment]" id="comment" class="form-control" rows="4" required></textarea>
+                            <div class="invalid-feedback">Please add some comments.</div>
+                        </div>
+                        <button class="btn btn-outline-dark w-100">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <!-- <% } %> -->
+
+            <!-- All Reviews (Visible to everyone, but delete button only for review authors) -->
+            <% if(listing.reviews.length > 0) { %>
+            <h4 class="text-center">All Reviews</h4>
+            <div class="d-flex flex-wrap justify-content-center">
+                <% for(let review of listing.reviews) { %>
+                <div class="card review-card m-2">
+                    <div class="card-body">
+                        <h5 class="card-title">@<%= review.author.username %></h5>
+                        <p class="starability-result" data-rating="<%= review.rating %>"></p>
+                        <p class="card-text"><%= review.comment %></p>
+                    </div>
+                    
+                    <!-- Only the review author can see the delete button -->
+                    <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
+                    <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                        <button class="btn btn-sm btn-danger w-100">Delete</button>
+                    </form>
+                    <% } %>
+                </div>
+                <% } %>
+            </div>
+            <% } %>
+
+            <!-- Map Section -->
+            <h3 class="text-center mt-4">This is the Location</h3>
+            <div class="card show-card">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.listingCoordinates = <%= JSON.stringify(listing.geometry ? listing.geometry.coordinates : [77.2090, 28.6139]) %>;
+    window.listingTitle = "<%= listing.title %>";
+    window.listingLocation = "<%= listing.location %>";
+    window.mapToken = "<%= process.env.MAP_TOKEN %>";
+</script>
+<script src="/js/map.js"></script>
+
+
+
+<style>
+/* General Container Styling */
+@media (max-width: 768px) {
+    .container {
+        width: 90% !important;
+        max-width: 1000px !important;
+        margin: auto !important;
+        padding: 25px !important;
+        border-radius: 12px !important;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2) !important;
+        background: #fff !important;
+    }
+}
+
+.box{
+    background: #f8f9fa !important;
+    /* border-radius: 10px !important; */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2) !important;
+    
+}
+
+
+/* Image Styling */
+.show-img {
+    
+    padding: 15px !important;
+    width: 100% !important;
+    height: 300px !important;
+    object-fit: cover !important;
+    border-radius: 10px !important;
+    background: #f8f9fa !important;
+   
+}
+
+/* Buttons */
+.edit-btn, .delete-btn, .book-btn {
+    width: 140px !important;
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    padding: 10px !important;
+    box-shadow: 0px 5px 10px rgba(43, 43, 41, 0.2) !important;
+}
+
+.book-btn {
+    background: #28a745 !important;
+    color: white !important;
+    width: 180px !important;
+}
+
+/* Review Section */
+.review-card {
+    width: 100% !important;
+    max-width: 900px !important;
+    padding: 25px !important;
+    border-radius: 10px !important;
+    box-shadow: 0px 5px 10px rgba(43, 43, 41, 0.2) !important;
+    background: #f8f9fa !important;
+}
+
+/* Map Styling */
+#map {
+   
+    height: 300px !important;
+    width: 100% !important;
+    max-width: 900px !important;
+    border-radius: 12px !important;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Larger Screen Enhancements */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1100px !important;
+        padding: 30px !important;
+    }
+
+    .show-img {
+        height: 500px !important;
+    }
+
+    .edit-btn, .delete-btn, .book-btn {
+        width: 160px !important;
+        font-size: 1.2rem !important;
+        padding: 12px !important;
+    }
+
+    .book-btn {
+        width: 200px !important;
+    }
+
+    .review-card {
+        max-width: 1000px !important;
+    }
+
+    #map {
+        height: 450px !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95% !important;
+        padding: 15px !important;
+    }
+
+    .show-img {
+        height: 300px !important;
+    }
+
+    .review-card {
+        width: 100% !important;
+        max-width: 800px !important;
+    }
+
+    #map {
+        height: 250px !important;
+    }
+
+    .edit-btn, .delete-btn, .book-btn {
+        width: 120px !important;
+        font-size: 1rem !important;
+    }
+}
+
+
+
+</style>
